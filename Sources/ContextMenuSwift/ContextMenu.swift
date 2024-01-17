@@ -65,6 +65,7 @@ public class ContextMenuConstants {
     public var MinZoom : CGFloat = 0.8
     public var MenuDefaultHeight : CGFloat = 120
     public var MenuWidth : CGFloat = 250
+    public var MenuTopMarginSpace : CGFloat = 0
     public var MenuMarginSpace : CGFloat = 20
     public var MenuShadowColor : UIColor = .black
     public var MenuShadowRadius : CGFloat = 17.0
@@ -581,42 +582,42 @@ open class ContextMenu: NSObject {
     
     func updateVerticalTargetedImageViewRect() {
         
-        let bottomClippedSpace = (tvH + MenuConstants.MenuMarginSpace + mH + tvY + MenuConstants.BottomMarginSpace) - mainViewRect.height
-        let topClippedSpace = -(tvY - MenuConstants.MenuMarginSpace - mH - MenuConstants.TopMarginSpace)
+        let bottomClippedSpace = (tvH + MenuConstants.MenuTopMarginSpace + mH + tvY + MenuConstants.BottomMarginSpace) - mainViewRect.height
+        let topClippedSpace = -(tvY - MenuConstants.MenuTopMarginSpace - mH - MenuConstants.TopMarginSpace)
         
         // not enought space down
         
         if topClippedSpace > 0, bottomClippedSpace > 0 {
             
-            let diffY = mainViewRect.height - (mH + MenuConstants.MenuMarginSpace + tvH + MenuConstants.TopMarginSpace + MenuConstants.BottomMarginSpace)
+            let diffY = mainViewRect.height - (mH + MenuConstants.MenuTopMarginSpace + tvH + MenuConstants.TopMarginSpace + MenuConstants.BottomMarginSpace)
             if diffY > 0 {
                 if (tvY + tvH/2) > mainViewRect.height/2 { //down
                     tvY = tvY + topClippedSpace
-                    mY = tvY - MenuConstants.MenuMarginSpace - mH
+                    mY = tvY - MenuConstants.MenuTopMarginSpace - mH
                 } else { //up
                     tvY = tvY - bottomClippedSpace
-                    mY = tvY + MenuConstants.MenuMarginSpace + tvH
+                    mY = tvY + MenuConstants.MenuTopMarginSpace + tvH
                 }
             } else {
                 if (tvY + tvH/2) > mainViewRect.height/2 { //down
                     tvY = mainViewRect.height - MenuConstants.BottomMarginSpace - tvH
                     mY = MenuConstants.TopMarginSpace
-                    mH = mainViewRect.height - MenuConstants.TopMarginSpace - MenuConstants.BottomMarginSpace - MenuConstants.MenuMarginSpace - tvH
+                    mH = mainViewRect.height - MenuConstants.TopMarginSpace - MenuConstants.BottomMarginSpace - MenuConstants.MenuTopMarginSpace - tvH
                 } else { //up
                     tvY = MenuConstants.TopMarginSpace
-                    mY = tvY + tvH + MenuConstants.MenuMarginSpace
-                    mH = mainViewRect.height - MenuConstants.TopMarginSpace - MenuConstants.BottomMarginSpace - MenuConstants.MenuMarginSpace - tvH
+                    mY = tvY + tvH + MenuConstants.MenuTopMarginSpace
+                    mH = mainViewRect.height - MenuConstants.TopMarginSpace - MenuConstants.BottomMarginSpace - MenuConstants.MenuTopMarginSpace - tvH
                 }
             }
         }
         else if bottomClippedSpace > 0 {
-            mY = tvY - MenuConstants.MenuMarginSpace - mH
+            mY = tvY - MenuConstants.MenuTopMarginSpace - mH
         }
         else if topClippedSpace > 0  {
-            mY = tvY + MenuConstants.MenuMarginSpace  + tvH
+            mY = tvY + MenuConstants.MenuTopMarginSpace  + tvH
         }
         else {
-            mY = tvY + MenuConstants.MenuMarginSpace + tvH
+            mY = tvY + MenuConstants.MenuTopMarginSpace + tvH
         }
         
     }
