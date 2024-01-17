@@ -355,8 +355,8 @@ open class ContextMenu: NSObject {
             UIView.animate(withDuration: 0.2) {
                 self.blurEffectView.alpha = 1
                 self.targetedImageView.layer.shadowOpacity = 0.2
-                self.menuView.layer.shadowOpacity = MenuConstants.MenuShadowOpacity
-                self.tableView.layer.shadowOpacity = MenuConstants.TargetViewShadowOpacity
+                self.menuView.layer.shadowOpacity = self.MenuConstants.MenuShadowOpacity
+                self.tableView.layer.shadowOpacity = self.MenuConstants.TargetViewShadowOpacity
             }
         } else {
             self.blurEffectView.alpha = 1
