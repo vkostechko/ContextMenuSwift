@@ -355,10 +355,14 @@ open class ContextMenu: NSObject {
             UIView.animate(withDuration: 0.2) {
                 self.blurEffectView.alpha = 1
                 self.targetedImageView.layer.shadowOpacity = 0.2
+                self.menuView.layer.shadowOpacity = MenuConstants.MenuShadowOpacity
+                self.tableView.layer.shadowOpacity = MenuConstants.TargetViewShadowOpacity
             }
         } else {
             self.blurEffectView.alpha = 1
             self.targetedImageView.layer.shadowOpacity = 0.2
+            self.menuView.layer.shadowOpacity = MenuConstants.MenuShadowOpacity
+            self.tableView.layer.shadowOpacity = MenuConstants.TargetViewShadowOpacity
         }
         self.updateTargetedImageViewPosition(animated: animated)
         self.onViewAppear?(self.viewTargeted)
@@ -426,6 +430,8 @@ open class ContextMenu: NSObject {
         self.targetedImageView.frame = CGRect(x: rect.x, y: rect.y, width: self.viewTargeted.frame.width, height: self.viewTargeted.frame.height)
         self.menuView.alpha = 0
         self.menuView.frame = CGRect(x: rect.x, y: rect.y, width: self.viewTargeted.frame.width, height: self.viewTargeted.frame.height)
+        self.menuView.layer.shadowOpacity = 0
+        self.tableView.layer.shadowOpacity = 0
     }
     
     func removeAllViewsFromSuperView() {
