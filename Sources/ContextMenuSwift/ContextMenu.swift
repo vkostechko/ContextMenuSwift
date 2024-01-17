@@ -66,6 +66,9 @@ public class ContextMenuConstants {
     public var MenuDefaultHeight : CGFloat = 120
     public var MenuWidth : CGFloat = 250
     public var MenuMarginSpace : CGFloat = 20
+    public var MenuShadowColor : UIColor = .black
+    public var MenuShadowRadius : CGFloat = 17.0
+    public var MenuShadowOpacity : Float = 1.0
     public var TopMarginSpace : CGFloat = 40
     public var BottomMarginSpace : CGFloat = 24
     public var HorizontalMarginSpace : CGFloat = 20
@@ -82,6 +85,10 @@ public class ContextMenuConstants {
     
     public var DismissOnItemTap : Bool = false
     public var horizontalDirection: HorizontalDirection = .left
+
+    public var TargetViewShadowColor : UIColor = .black
+    public var TargetViewShadowRadius : CGFloat = 17.0
+    public var TargetViewShadowOpacity : Float = 1.0
 }
 
 open class ContextMenu: NSObject {
@@ -280,11 +287,10 @@ open class ContextMenu: NSObject {
                                          y: rect.y,
                                          width: viewTargeted.frame.width,
                                          height: viewTargeted.frame.height)
-        targetedImageView.layer.shadowColor = UIColor.black.cgColor
-        targetedImageView.layer.shadowRadius = 16
-        targetedImageView.layer.shadowOpacity = 0
+        targetedImageView.layer.shadowColor = MenuConstants.TargetViewShadowColor.cgColor
+        targetedImageView.layer.shadowRadius = MenuConstants.TargetViewShadowRadius
+        targetedImageView.layer.shadowOpacity = MenuConstants.TargetViewShadowOpacity
         targetedImageView.isUserInteractionEnabled = true
-        
     }
     
     func addMenuView() {
@@ -300,11 +306,14 @@ open class ContextMenu: NSObject {
         let rect = viewTargeted.convert(mainViewRect.origin, to: nil)
         
         menuView.backgroundColor = MenuConstants.ItemDefaultColor
-        menuView.layer.cornerRadius = MenuConstants.MenuCornerRadius
-        menuView.clipsToBounds = true
+        menuView.clipsToBounds = false
         menuView.frame = CGRect(x: rect.x,
                                 y: rect.y,
                                 width: self.viewTargeted.frame.width, height: self.viewTargeted.frame.height)
+        menuView.layer.shadowColor = MenuConstants.MenuShadowColor.cgColor
+        menuView.layer.shadowRadius = MenuConstants.MenuShadowRadius
+        menuView.layer.shadowOpacity = MenuConstants.MenuShadowOpacity
+
         menuView.addSubview(tableView)
         
         tableView.dataSource = self
@@ -323,6 +332,9 @@ open class ContextMenu: NSObject {
         tableView.allowsMultipleSelection = true
         tableView.backgroundColor = .clear
         tableView.reloadData()
+
+        tableView.layer.cornerRadius = MenuConstants.MenuCornerRadius
+        tableView.clipsToBounds = true
     }
     
     func openAllViews(animated: Bool = true){
